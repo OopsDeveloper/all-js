@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Guesser</title>
+<style>
+.done .hide-when-done {
+    display: none;
+}
+
+.running .hide-when-running {
+    display: none;
+}
+</style>
+</head>
+<body>
+<p id="text">&nbsp;</p>
+<input class="hide-when-done" type="button" id="btn-yes" value="Yes">
+<input class="hide-when-done" type="button" id="btn-no" value="No">
+<input class="hide-when-running" type="button" id="btn-again" value="Go Again">
+<script>
+function* guesser() {
+    if (yield "Are you employed / self-employed at the moment?") {
+        if (yield "Do you work full-time?") {
+            return "You're in full-time employment.";
+        } else {
+            return "You're in part-time employment.";
+        }
+    } else {
+        if (yield "Do you spend time taking care of someone instead of working?") {
+            if (yield "Are you a stay-at-home parent?") {
+                return "You're a parent.";
+            } else {
+                return "You must be a caregiver.";
+            }
+        } else {
+            if (yield "Are you at school / studying?") {
+                return "You're a student.";
+            } else {
+                if (yield "Are you retired?") {
+                    return "You're a retiree.";
+                }
+                else {
+                    return "You're a layabout! ;-)";
+                }
+            }
+        }
+    }
+}
+
+function init() {
+    const text     = document.getElementById("text");
+    const btnYes   = document.getElementById("btn-yes");
+    const btnNo    = document.getElementById("btn-no");
+    const btnAgain = document.getElementById("btn-again");
+
+    let gen;
+
+    function start() {
+        gen = guesser();
+        update(gen.next());
+        showRunning(true);
+    }
+
+    function update(result) {
+        text.textContent = result.value;
+        if (result.done) {
+            showRunning(false);
+        }
+    }
+
+    function showRunning(running) {
+        const {classList} = document.body;
+        classList.remove(running ? "done" : "running");
+        classList.add(running ? "running" : "done");
+    }
+
+    btnYes.addEventListener("click", () => {
+        update(gen.next(true));
+    });
+    btnNo.addEventListener("click", () => {
+        update(gen.next(false));
+    });
+    btnAgain.addEventListener("click", start);
+
+    start();
+}
+
+init();
+</script>
+</body>
+</html>

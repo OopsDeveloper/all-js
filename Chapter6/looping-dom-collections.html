@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Looping DOM Collections</title>
+</head>
+<body>
+<p>
+    Lorem <span class="cap">ipsum</span> dolor sit amet, consectetur adipiscing
+    elit, sed do eiusmod <span class="cap">tempor</span> incididunt ut
+    <span>labore</span> et dolore <span class="cap">magna</span>
+    <span class="other">aliqua</span>.
+</p>
+<script>
+for (const span of document.querySelectorAll("span.cap")) {
+    span.textContent = span.textContent.toUpperCase();
+}
+</script>
+</body>
+</html>

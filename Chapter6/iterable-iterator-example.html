@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Iterable Iterator Example</title>
+</head>
+<body>
+<div>
+    <span>
+        <em id="target">Look in the console for the output</em>
+    </span>
+</div>
+<script>
+// Not really how you'd write this, but shows how implementing the Symbol.iterator
+// method makes it possible to use an iterator with `for-of`
+function parents(element) {
+    return {
+        next() {
+            element = element && element.parentNode;
+            if (element && element.nodeType === Node.ELEMENT_NODE) {
+                return {value: element};
+            }
+            return {done: true};
+        },
+        // Makes this iterator an iterable
+        [Symbol.iterator]() {
+            return this;
+        }
+    };
+}
+for (const parent of parents(document.getElementById("target"))) {
+    console.log(parent.tagName);
+}
+</script>
+</body>
+</html>

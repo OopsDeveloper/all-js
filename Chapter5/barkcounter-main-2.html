@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BarkCounter Across Realms - Main - Version 2</title>
+</head>
+<body>
+<script src="barkcounter-version-2.js"></script>
+<script>
+var barkCounterFrame = document.createElement("iframe");
+barkCounterFrame.addEventListener("load", function() {
+    const b1 = new BarkCounter();
+    b1.bark();
+    b1.bark();
+    b1.showBarks("main");           // main: Barks = 2
+    barkCounterFrame.contentWindow.useBarkCounter(b1);
+});
+barkCounterFrame.src = "barkcounter-frame-2.html";
+document.body.appendChild(barkCounterFrame);
+</script>
+</body>
+</html>

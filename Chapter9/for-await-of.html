@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>for-await-of</title>
+</head>
+<body>
+Be sure to open the web console to see the console output.
+<script src="async-generator-fetchInSeries.js"></script>
+<script>
+(async () => {
+    try {
+        for await (const value of fetchInSeries(["1.json", "2.json", "3.json"])) {
+            console.log(value);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>async Generator fetchInSeries</title>
+</head>
+<body>
+Be sure to open the web console to see the console output.
+<script src="async-generator-fetchInSeries.js"></script>
+<script>
+(async () => {
+    try {
+        const g = fetchInSeries(["1.json", "2.json", "3.json"]);
+        let result;
+        while (!(result = await g.next()).done) {
+            console.log(result.value);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+})();
+</script>
+</body>
+</html>

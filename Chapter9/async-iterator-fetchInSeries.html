@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>async Iterator fetchInSeries</title>
+</head>
+<body>
+Be sure to open the web console to see the console output.
+<script src="async-iterator-fetchInSeries.js"></script>
+<script>
+(async () => {
+    try {
+        const a = ["1.json", "2.json", "3.json", "4.json", "5.json"];
+        const it = fetchInSeries(a);
+        let result;
+        while (!(result = await it.next()).done) {
+            console.log("value", result.value);
+        }
+    } catch (err) {
+        console.error(err);
+    }
+})();
+</script>
+</body>
+</html>

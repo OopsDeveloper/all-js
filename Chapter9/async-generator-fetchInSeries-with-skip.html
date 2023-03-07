@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>async Generator fetchInSeries</title>
+</head>
+<body>
+Be sure to open the web console to see the console output.
+<script src="async-generator-fetchInSeries-with-skip.js"></script>
+<script>
+(async () => {
+    try {
+        const g = fetchInSeries(["1.json", "2.json", "3.json"]);
+        let skipNext = false;
+        let result;
+        while (!(result = await g.next(skipNext)).done) {
+            console.log(result.value);
+            skipNext = result.value.value === 1;
+        }
+    } catch (err) {
+        console.error(err);
+    }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web Worker Module Example</title>
+</head>
+<body>
+<script>
+const worker = new Worker("./worker-example-worker.js", {type: "module"});
+worker.addEventListener("message", e => {
+    console.log(`Message from worker: ${e.data}`);
+});
+</script>
+</body>
+</html>
